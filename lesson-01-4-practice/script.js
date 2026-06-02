@@ -3,8 +3,6 @@ const message = document.querySelector("#message");
 const decreaseBtn = document.querySelector("#decrease");
 const increaseBtn = document.querySelector("#increase");
 const resetBtn = document.querySelector("#reset");
-const doubleBtn = document.querySelector("#double");
-const stepInput = document.querySelector("#step");
 
 let count = 0;
 
@@ -15,8 +13,6 @@ function updateMessage() {
     message.textContent = "Непогано, продовжуй!";
   } else if (count < 10) {
     message.textContent = "Молодець!";
-  } else if (count > 20) {
-    message.textContent = "Це занадто! Зупинись!";
   } else {
     message.textContent = "Шалено! Ти невпинний!";
   }
@@ -25,8 +21,6 @@ function updateMessage() {
 function updateUI() {
   countDisplay.textContent = count;
   updateMessage();
-
-  count === 0 ? (decreaseBtn.disabled = true) : (decreaseBtn.disabled = false);
 
   if (count > 10) {
     countDisplay.classList.add("high");
@@ -38,23 +32,18 @@ function updateUI() {
 }
 
 increaseBtn.addEventListener("click", () => {
-  stepInput ? count += parseInt(stepInput.value) : count += 1;
+  count += 1;
   updateUI();
 });
 
 decreaseBtn.addEventListener("click", () => {
   if (count > 0) {
-    stepInput ? count -= parseInt(stepInput.value) : count -= 1;
+    count -= 1;
     updateUI();
   }
 });
 
 resetBtn.addEventListener("click", () => {
   count = 0;
-  updateUI();
-});
-
-doubleBtn.addEventListener("click", () => {
-  count *= 2;
   updateUI();
 });

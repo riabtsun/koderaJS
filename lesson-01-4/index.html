@@ -1,26 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
-<head>
-  <meta charset="UTF-8">
-  <title>Лічильник кліків</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <main>
-    <h1>Лічильник кліків</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Лічильник кліків</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Лічильник кліків</h1>
 
-    <div class="counter-display">
-      <span id="count">0</span>
-    </div>
+      <input type="number" id="step" value="1" min="1" />
+      <div class="counter-display">
+        <span id="count">0</span>
+      </div>
 
-    <p id="message">Почни тиснути!</p>
+      <p id="message">Почни тиснути!</p>
 
-    <div class="buttons">
-      <button id="decrease">−</button>
-      <button id="increase">+</button>
-      <button id="reset">Скинути</button>
-    </div>
-  </main>
-</body>
+      <div class="buttons">
+        <button id="decrease">−</button>
+        <button id="increase">+</button>
+        <button id="reset">Скинути</button>
+        <button id="double">×2</button>
+      </div>
+    </main>
+  </body>
 </html>
