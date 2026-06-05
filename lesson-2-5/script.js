@@ -48,10 +48,10 @@ calcBtn.addEventListener("click", () => {
     showError("Введіть коректні числові значення для ціни та кількості.");
   }
 
-  const subtotal = price * quantity;
-  const discountAmount = subtotal * discount;
   const deliveryCost = delivery === "courier" ? COURIER_COST : 0;
-  const total = subtotal - discountAmount + deliveryCost;
+  const subtotal = price * quantity + deliveryCost;
+  const discountAmount = subtotal * discount;
+  const total = subtotal - discountAmount;
 
   subtotalEl.textContent = createFormatter(subtotal, currency);
   discountEl.textContent =
