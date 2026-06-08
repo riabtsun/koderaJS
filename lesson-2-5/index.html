@@ -1,64 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
-<head>
-  <meta charset="UTF-8">
-  <title>Калькулятор замовлення</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <main>
-    <h1>Калькулятор замовлення</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Калькулятор замовлення</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Калькулятор замовлення</h1>
 
-    <div class="form">
-      <label>
-        Ціна за одиницю
-        <input id="price" type="number" min="0" step="0.01" placeholder="0.00">
-      </label>
+      <div class="form">
+        <label>
+          Ціна за одиницю
+          <input
+            id="price"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0.00"
+          />
+        </label>
 
-      <label>
-        Кількість
-        <input id="quantity" type="number" min="1" value="1">
-      </label>
+        <label>
+          Кількість
+          <input id="quantity" type="number" min="1" value="1" />
+        </label>
+        <label>
+          Промокод
+          <input id="promocode" type="text" placeholder="Введіть промокод" />
+        </label>
 
-      <label>
-        Знижка
-        <select id="discount">
-          <option value="0">Без знижки</option>
-          <option value="0.1">10%</option>
-          <option value="0.2">20%</option>
-        </select>
-      </label>
+        <label>
+          Знижка
+          <select id="discount">
+            <option value="0">Без знижки</option>
+            <option value="0.1">10%</option>
+            <option value="0.2">20%</option>
+          </select>
+        </label>
 
-      <label>
-        Доставка
-        <select id="delivery">
-          <option value="pickup">Самовивіз (безкоштовно)</option>
-          <option value="courier">Кур'єр (+150)</option>
-        </select>
-      </label>
+        <label>
+          Доставка
+          <select id="delivery">
+            <option value="pickup">Самовивіз (безкоштовно)</option>
+            <option value="courier">Кур'єр (+150)</option>
+          </select>
+        </label>
 
-      <label>
-        Валюта
-        <select id="currency">
-          <option value="UAH">UAH (₴)</option>
-          <option value="USD">USD ($)</option>
-          <option value="EUR">EUR (€)</option>
-        </select>
-      </label>
+        <label>
+          Валюта
+          <select id="currency">
+            <option value="UAH">UAH (₴)</option>
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+          </select>
+        </label>
 
-      <button id="calcBtn">Розрахувати</button>
-    </div>
+        <button id="calcBtn">Розрахувати</button>
+      </div>
+      <div>
+        <p id="lastTotalValue"></p>
+      </div>
 
-    <div id="result" class="result hidden">
-      <h2>Деталі замовлення</h2>
-      <div class="row"><span>Базова вартість:</span><span id="subtotal"></span></div>
-      <div class="row"><span>Знижка:</span><span id="discountAmount"></span></div>
-      <div class="row"><span>Доставка:</span><span id="deliveryCost"></span></div>
-      <div class="row total"><span>До оплати:</span><span id="total"></span></div>
-    </div>
+      <div id="result" class="result hidden">
+        <h2>Деталі замовлення</h2>
+        <div class="row">
+          <span>Базова вартість:</span><span id="subtotal"></span>
+        </div>
+        <div class="row">
+          <span>Знижка:</span><span id="discountAmount"></span>
+        </div>
+        <div class="row">
+          <span>Доставка:</span><span id="deliveryCost"></span>
+        </div>
+        <div class="row total">
+          <span>До оплати:</span><span id="total"></span>
+        </div>
+      </div>
 
-    <p id="error" class="error hidden"></p>
-  </main>
-</body>
+      <p id="error" class="error hidden"></p>
+    </main>
+  </body>
 </html>
