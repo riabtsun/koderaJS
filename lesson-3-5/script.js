@@ -2,11 +2,18 @@ const registerForm = document.querySelector("#registerForm");
 
 const successEl = document.querySelector("#success");
 const submitBtn = document.querySelector("#submit");
-
+const indicatorPassword = document.querySelector("#indicator-password");
+const passwordVisibilyti = document.querySelector("#visibilyti-password");
+passwordVisibilyti.style.cursor = "pointer";
 const NAME_REGEX = /^[а-яА-ЯёЁa-zA-ZїЇіІєЄґҐ\s'-]+$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const PASSWORD_HAS_UPPERCASE = /[A-ZА-ЯЇІЄҐ]/;
+const PASSWORD_HAS_LOWERCASE = /[a-zа-яїієґ]/;
 const PASSWORD_HAS_DIGIT = /[0-9]/;
+const PASSWORD_HAS_SPECIAL = /[^A-Za-zА-Яа-яЇїІіЄєҐґ0-9]/;
+const PASSWORD_ONLY_LETTERS = /^[A-Za-zА-Яа-яЇїІіЄєҐґ]+$/;
+const PASSWORD_ONLY_DIGITS = /^[0-9]+$/;
 
 const MIN_AGE = 13;
 const MAX_AGE = 120;
@@ -79,6 +86,47 @@ function errorOnBlurToggle(inputName, error) {
     errorEl.textContent = "";
   }
 }
+
+function getPasswordStrength(password) {
+  if (!password) return "";
+  if (
+    password.length < 8 ||
+    PASSWORD_ONLY_LETTERS.test(password) ||
+    PASSWORD_ONLY_DIGITS.test(password)
+  ) {
+    return { strength: "Слабкий", color: "red" };
+  }
+
+  const hasUpper = PASSWORD_HAS_UPPERCASE.test(password);
+  const hasLower = PASSWORD_HAS_LOWERCASE.test(password);
+  const hasDigit = PASSWORD_HAS_DIGIT.test(password);
+  const hasSpecial = PASSWORD_HAS_SPECIAL.test(password);
+
+  if (password.length >= 12 && hasUpper && hasDigit && hasSpecial) {
+    return { strength: "Сильний", color: "green" };
+  }
+
+  if (password.length >= 8 && (hasUpper || hasLower) && hasDigit) {
+    return { strength: "Середній", color: "lightblue" };
+  }
+
+  return { strength: "Слабкий", color: "red" };
+}
+
+passwordVisibilyti.addEventListener("click", () => {
+  if (registerForm.password.type === "password") {
+    registerForm.password.type = "text";
+  } else {
+    registerForm.password.type = "password";
+  }
+});
+
+registerForm.password.addEventListener("keyup", () => {
+  const password = registerForm.password.value;
+  const passwordProps = getPasswordStrength(password);
+  indicatorPassword.textContent = passwordProps.strength;
+  indicatorPassword.style.color = passwordProps.color;
+});
 
 registerForm.name.addEventListener("blur", () => {
   const error = validateName(registerForm.name.value.trim());
