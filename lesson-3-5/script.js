@@ -20,14 +20,15 @@ function validateName(name) {
 
 function validateEmail(email) {
   if (!email) return "Введіть email";
-  if (!EMAIL_REGEX) return "Невалідний формат email";
+  if (!EMAIL_REGEX.test(email)) return "Невалідний формат email";
   return null;
 }
 
 function validatePassword(password) {
   if (!password) return "Введіть пароль";
   if (password.length < 8) return "Пароль має бути мінімум 8 символів";
-  if (!PASSWORD_HAS_UPPERCASE.test(password)) return "Пароль має містити велику літеру";
+  if (!PASSWORD_HAS_UPPERCASE.test(password))
+    return "Пароль має містити велику літеру";
   if (!PASSWORD_HAS_DIGIT.test(password)) return "Пароль має містити цифру";
   return null;
 }
@@ -35,11 +36,11 @@ function validatePassword(password) {
 function validatePasswordConfirm(password, confirm) {
   if (!confirm) return "Підтвердіть пароль";
   if (password !== confirm) return "Паролі не співпадають";
-  return null
+  return null;
 }
 
 function validateAge(ageString) {
-  if (!ageString) return null;   // вік необов'язковий
+  if (!ageString) return null; // вік необов'язковий
 
   const age = Number(ageString);
   if (Number.isNaN(age)) return "Вік має бути числом";
@@ -58,6 +59,7 @@ function showError(fieldId, message) {
 
   errorEl.textContent = message;
   inputEl.classList.add("invalid");
+  inputEl.nextElementSibling.classList.add("error");
 }
 
 function clearErrors() {
@@ -66,6 +68,45 @@ function clearErrors() {
     .querySelectorAll(".invalid")
     .forEach((el) => el.classList.remove("invalid"));
 }
+
+function errorOnBlurToggle(inputName, error) {
+  const errorEl = document.querySelector(`#error-${inputName}`);
+  if (error) {
+    showError(inputName, error);
+  } else {
+    registerForm[inputName].classList.remove("invalid");
+    errorEl.classList.remove("error");
+    errorEl.textContent = "";
+  }
+}
+
+registerForm.name.addEventListener("blur", () => {
+  const error = validateName(registerForm.name.value.trim());
+  errorOnBlurToggle("name", error);
+});
+
+registerForm.email.addEventListener("blur", () => {
+  const error = validateEmail(registerForm.email.value.trim());
+  errorOnBlurToggle("email", error);
+});
+
+registerForm.password.addEventListener("blur", () => {
+  const error = validatePassword(registerForm.password.value);
+  errorOnBlurToggle("password", error);
+});
+
+registerForm.passwordConfirm.addEventListener("blur", () => {
+  const error = validatePasswordConfirm(
+    registerForm.password.value,
+    registerForm.passwordConfirm.value,
+  );
+  errorOnBlurToggle("passwordConfirm", error);
+});
+
+registerForm.age.addEventListener("blur", () => {
+  const error = validateAge(registerForm.age.value.trim());
+  errorOnBlurToggle("age", error);
+});
 
 registerForm.addEventListener("submit", (e) => {
   e.preventDefault();
